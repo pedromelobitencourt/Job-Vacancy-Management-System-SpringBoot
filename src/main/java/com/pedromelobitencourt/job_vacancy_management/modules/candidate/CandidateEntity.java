@@ -21,6 +21,7 @@ public class CandidateEntity {
 
     @Length(min = 5, max = 100)
     private String password;
+    
     private String description;
     private String curriculum;
 }
