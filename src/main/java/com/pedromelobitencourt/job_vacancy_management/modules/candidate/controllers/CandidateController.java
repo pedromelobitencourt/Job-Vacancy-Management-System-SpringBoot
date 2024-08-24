@@ -3,9 +3,7 @@ package com.pedromelobitencourt.job_vacancy_management.modules.candidate.control
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.pedromelobitencourt.job_vacancy_management.exceptions.UserFoundException;
 import com.pedromelobitencourt.job_vacancy_management.modules.candidate.CandidateEntity;
-import com.pedromelobitencourt.job_vacancy_management.modules.candidate.CandidateRepository;
 import com.pedromelobitencourt.job_vacancy_management.modules.candidate.useCases.CreateCandidateUseCase;
 
 import jakarta.validation.Valid;
