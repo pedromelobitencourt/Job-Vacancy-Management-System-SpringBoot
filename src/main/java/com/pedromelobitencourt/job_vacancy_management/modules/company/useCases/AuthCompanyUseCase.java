@@ -1,5 +1,8 @@
 package com.pedromelobitencourt.job_vacancy_management.modules.company.useCases;
 
+import java.time.Duration;
+import java.time.Instant;
+
 import javax.naming.AuthenticationException;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,14 +29,15 @@ public class AuthCompanyUseCase {
 
     public String execute(AuthCompanyDTO authCompanyDTO) throws AuthenticationException {
         var company = this.companyRepository.findByUsername(authCompanyDTO.getUsername())
-            .orElseThrow(() -> { throw new UsernameNotFoundException("Company not found"); });
+            .orElseThrow(() -> { throw new UsernameNotFoundException("Username/password incorrect"); });
 
         // verify passwords
         var passwordMatches = this.passwordEncoder.matches(authCompanyDTO.getPassword(), company.getPassword());
-        if(!passwordMatches) { throw new AuthenticationException(); }
+        if(!passwordMatches) { throw new AuthenticationException("Username/password incorrect"); }
         // generate token
         Algorithm algorithm = Algorithm.HMAC256(secretKey);
         var token = JWT.create().withIssuer("javacancy")
+            .withExpiresAt(Instant.now().plus(Duration.ofHours(2)))
             .withSubject(company.getId().toString())
             .sign(algorithm);
         return token;
