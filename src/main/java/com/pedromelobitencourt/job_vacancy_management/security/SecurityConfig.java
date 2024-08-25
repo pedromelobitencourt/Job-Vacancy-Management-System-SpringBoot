@@ -28,6 +28,7 @@ public class SecurityConfig {
                 .requestMatchers("/company/").permitAll()
                 .requestMatchers("/company/auth").permitAll()
                 .requestMatchers("/candidate/auth").permitAll()
+                .requestMatchers("/company/job").permitAll()
                 .anyRequest().authenticated(); 
             })
             .addFilterBefore(securityCandidateFilter, BasicAuthenticationFilter.class)
