@@ -1,5 +1,7 @@
 package com.pedromelobitencourt.job_vacancy_management.modules.candidate.dto;
 
+import java.util.UUID;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -9,7 +11,10 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class AuthCandidateResponseDTO {
-    private String access_token;
-    private Long expires_in;
+public class ProfileCandidateDTO {
+    private String description;
+    private String name;
+    private String email;
+    private String username;
+    private UUID id;
 }

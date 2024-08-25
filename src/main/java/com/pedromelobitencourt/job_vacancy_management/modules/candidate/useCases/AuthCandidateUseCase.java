@@ -30,20 +30,21 @@ public class AuthCandidateUseCase {
     private PasswordEncoder passwordEncoder;
 
     public AuthCandidateResponseDTO execute(AuthCandidateRequestDTO authCandidateRequestDTO) throws AuthenticationException {
-        var candidate = candidateRepository.findByUsername(authCandidateRequestDTO.username())
+        var candidate = this.candidateRepository.findByUsername(authCandidateRequestDTO.username())
             .orElseThrow(() -> { throw new UsernameNotFoundException("Username/password incorrect"); });
         var passwordMatches = this.passwordEncoder.matches(authCandidateRequestDTO.password(), candidate.getPassword());
 
         if(!passwordMatches) throw new AuthenticationException();
 
         Algorithm algorithm = Algorithm.HMAC256(secretKey);
+        var expiresIn = Instant.now().plus(Duration.ofMinutes(10));
         var token = JWT.create()
             .withIssuer("javacancy")
             .withSubject(candidate.getId().toString())
             .withClaim("roles", Arrays.asList("candidate"))
-            .withExpiresAt(Instant.now().plus(Duration.ofMinutes(10)))
+            .withExpiresAt(expiresIn)
             .sign(algorithm);
-        var authCandidateResponseDTO = AuthCandidateResponseDTO.builder().access_token(token).build();
+        var authCandidateResponseDTO = AuthCandidateResponseDTO.builder().access_token(token).expires_in(expiresIn.toEpochMilli()).build();
         return authCandidateResponseDTO;
     }
 }
