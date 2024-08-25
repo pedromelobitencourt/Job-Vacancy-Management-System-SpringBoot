@@ -1,7 +1,6 @@
 package com.pedromelobitencourt.job_vacancy_management.modules.company.useCases;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.pedromelobitencourt.job_vacancy_management.modules.company.entities.JobEntity;

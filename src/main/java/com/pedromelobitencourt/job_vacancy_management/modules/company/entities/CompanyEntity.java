@@ -30,6 +30,7 @@ public class CompanyEntity {
     private String email;
     private String website;
     private String description;
+    private String password;
 
     @CreationTimestamp
     private Date createdAt;
